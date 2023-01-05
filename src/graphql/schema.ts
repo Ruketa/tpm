@@ -1,5 +1,4 @@
-export const schema = 
-  `
+export const schema = `
     scalar Date
 
     type Balance {
@@ -13,6 +12,6 @@ export const schema =
     }
 
     type Mutation {
-      setBalance(amount: Int): Int
+      postBalance(amount: Int): Int
     }
-  `
+  `;

@@ -18,7 +18,7 @@ export class BalanceController {
       });
   }
 
-  setBalance(amount: number): Promise<SetBalanceDTO> {
+  public postBalance(amount: number): Promise<SetBalanceDTO> {
     return;
   }
 
