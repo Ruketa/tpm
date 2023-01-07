@@ -12,6 +12,6 @@ export const schema = `
     }
 
     type Mutation {
-      postBalance(amount: Int): Int
+      postBalance(amount: [Int]): [Balance]
     }
   `;

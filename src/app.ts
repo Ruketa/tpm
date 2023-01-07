@@ -5,15 +5,11 @@ import { schema } from "./graphql/schema";
 import { generateResolver } from "./graphql/resolver";
 import { loggingMiddleware } from "./middlewares/loggingmiddleware";
 import { BalanceController } from "./controller/balanceController";
-import { Controllers } from "./controller/const-controllers";
-import { DataSourceService } from "./datasource/datasourceService";
-import "./typedi.config";
 import { injectable } from "tsyringe";
 
 @injectable()
 export class application {
   private server!: express.Express;
-  private controllers!: Controllers;
 
   constructor(private balanceController: BalanceController) {}
 

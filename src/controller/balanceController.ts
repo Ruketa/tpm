@@ -1,13 +1,16 @@
-import { BalanceRepository } from "../domain/balance/repository/typeorm/balanceRepository";
+import {
+  BalanceRepository,
+  PostBalanceModel,
+} from "../domain/balance/repository/typeorm/balanceRepository";
 import { BalanceCollection } from "../domain/balance/model/balanceCollection";
-import { GetBalanceDTO, SetBalanceDTO } from "./dto/balanceDTO";
+import { BalanceDTO } from "./dto/balanceDTO";
 import { injectable } from "tsyringe";
 
 @injectable()
 export class BalanceController {
   constructor(private balanceRepository: BalanceRepository) {}
 
-  public async getBalance(): Promise<GetBalanceDTO[]> {
+  public async getBalance(): Promise<BalanceDTO[]> {
     return this.balanceRepository
       .getBalance()
       .then((collection: BalanceCollection) => {
@@ -18,12 +21,25 @@ export class BalanceController {
       });
   }
 
-  public postBalance(amount: number): Promise<SetBalanceDTO> {
-    return;
+  public postBalance(amounts: number[]): Promise<BalanceDTO[]> {
+    const parameters: PostBalanceModel[] = [];
+    const current = new Date();
+    amounts.forEach((amount) => {
+      parameters.push({
+        amount: amount,
+        updated_on: current,
+      });
+    });
+    return this.balanceRepository
+      .postBalance(parameters)
+      .then((response: BalanceCollection) => {
+        const dtos: BalanceDTO[] = [];
+        return this.mapBalanceDTO(response);
+      });
   }
 
-  private mapBalanceDTO(collection: BalanceCollection): GetBalanceDTO[] {
-    const dtos: GetBalanceDTO[] = [];
+  private mapBalanceDTO(collection: BalanceCollection): BalanceDTO[] {
+    const dtos: BalanceDTO[] = [];
     for (const balance of collection) {
       dtos.push({
         balanceId: balance.id,

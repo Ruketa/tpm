@@ -1,9 +1,9 @@
-export interface GetBalanceDTO {
-  balanceId: number
-  amount: number
-  updatedOn: Date
+export interface BalanceDTO {
+  balanceId: number;
+  amount: number;
+  updatedOn: Date;
 }
 
-export interface SetBalanceDTO{
-  amount: number
+export interface PostRequestDTO {
+  amount: number;
 }

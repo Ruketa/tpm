@@ -5,8 +5,8 @@ export const generateResolver = (controllers: Controllers) => {
     getBalance: () => {
       return controllers.balanceController.getBalance();
     },
-    postBalacnce: (amount: number) => {
-      return controllers.balanceController.postBalance(amount);
+    postBalance: (parameter) => {
+      return controllers.balanceController.postBalance(parameter.amount);
     },
   };
 };
