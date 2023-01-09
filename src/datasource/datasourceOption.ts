@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { DataSourceOptions } from "typeorm";
 import { Balance } from "../domain/balance/repository/typeorm/entity/balance";
-import { Income } from "../domain/income/entity/income";
+import { Deposite } from "../domain/deposite/entity/deposite";
 import { Payment } from "../domain/payment/entity/payment";
 import { DatabaseConfig } from "../environments/environment";
 
@@ -14,7 +14,7 @@ export const DataSourceOption: DataSourceOptions = {
   database: DatabaseConfig.database,
   synchronize: true,
   logging: false,
-  entities: [Balance, Income, Payment],
+  entities: [Balance, Deposite, Payment],
   migrations: [],
   subscribers: [],
 };

@@ -1,20 +1,9 @@
 import { Repository } from "typeorm";
 import { Balance } from "./entity/balance";
 import { BalanceCollection } from "../../model/balanceCollection";
-import { BalanceDomain } from "../../model/balance";
 import { injectable } from "tsyringe";
 import { DataSourceService } from "../../../../datasource/datasourceService";
 import { BalanceEntityDomainConverter } from "../../service/balanceEntityDomainConverter";
-
-function catchError() {
-  return function (
-    target: any,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-  ) {
-    console.log("first(): called");
-  };
-}
 
 export type PostBalanceModel = {
   amount: number;
