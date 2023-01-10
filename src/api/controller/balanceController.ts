@@ -1,8 +1,8 @@
 import {
   BalanceRepository,
   PostBalanceModel,
-} from "../domain/balance/repository/typeorm/balanceRepository";
-import { BalanceCollection } from "../domain/balance/model/balanceCollection";
+} from "../../domain/balance/repository/balanceRepository";
+import { BalanceCollection } from "../../domain/balance/model/balanceCollection";
 import { BalanceDTO } from "./dto/balanceDTO";
 import { injectable } from "tsyringe";
 

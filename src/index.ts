@@ -1,9 +1,7 @@
-import { application } from "./app";
-import { container } from "tsyringe";
+import { application } from "./api/api";
 
 const main = () => {
-  //const app = new application();
-  const app = container.resolve(application);
+  const app = new application();
   app
     .initialize()
     .then((_) => {

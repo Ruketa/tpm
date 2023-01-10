@@ -1,9 +1,9 @@
 import "reflect-metadata";
 import { DataSourceOptions } from "typeorm";
-import { Balance } from "../domain/balance/repository/typeorm/entity/balance";
-import { Deposite } from "../domain/deposite/entity/deposite";
-import { Payment } from "../domain/payment/entity/payment";
-import { DatabaseConfig } from "../environments/environment";
+import { Balance } from "../entity/balance";
+import { Deposite } from "../entity/deposite";
+import { Payment } from "../entity/payment";
+import { DatabaseConfig } from "../../../environments/environment";
 
 export const DataSourceOption: DataSourceOptions = {
   type: DatabaseConfig.type,

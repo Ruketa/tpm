@@ -1,10 +1,10 @@
 import { BalanceDomain } from "../model/balance";
 import { BalanceCollection } from "../model/balanceCollection";
-import { Balance } from "../repository/typeorm/entity/balance";
+import { Balance } from "../../../infrastructure/typeorm/entity/balance";
+import { injectable } from "tsyringe";
 
+@injectable()
 export class BalanceEntityDomainConverter {
-  constructor() {}
-
   convert(entities: Balance[]): BalanceCollection {
     const balances: BalanceDomain[] = [];
     entities.forEach((x) => {

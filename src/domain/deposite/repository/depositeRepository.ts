@@ -1,6 +1,6 @@
 import { injectable } from "tsyringe";
-import { DataSourceService } from "../../../datasource/datasourceService";
-import { Deposite } from "../entity/deposite";
+import { DataSourceService } from "../../../infrastructure/typeorm/datasource/datasourceService";
+import { Deposite } from "../../../infrastructure/typeorm/entity/deposite";
 
 @injectable()
 export class DepositeRepository {
