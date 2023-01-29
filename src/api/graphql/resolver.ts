@@ -1,5 +1,4 @@
 import { container } from "tsyringe";
-import { Controllers } from "../controller/const-controllers";
 import { BalanceController } from "../controller/balanceController";
 
 export const generateResolver = () => {

@@ -1,21 +1,30 @@
-import { Repository } from "typeorm";
 import { Balance } from "../../../infrastructure/typeorm/entity/balance";
 import { BalanceCollection } from "../model/balanceCollection";
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { BalanceEntityDomainConverter } from "../service/balanceEntityDomainConverter";
 import { BalanceTypeormRepository } from "../../../infrastructure/typeorm/repository/balanceRepository";
+import { IBalanceRepository } from "../../../usecase/deposite";
 
 export type PostBalanceModel = {
   amount: number;
   updated_on: Date;
 };
 
+export interface IBalanceTypeOrmRepository {
+  getBalance(): Promise<Balance[]>;
+  saveBalance(entities: Balance[]): Promise<Balance[]>;
+}
+
 @injectable()
-export class BalanceRepository {
+export class BalanceRepository implements IBalanceRepository {
+  private balanceEntityDomainConverter!: BalanceEntityDomainConverter;
+
   constructor(
-    private balanceRepository: BalanceTypeormRepository,
-    private balanceEntityDomainConverter: BalanceEntityDomainConverter
-  ) {}
+    @inject("BalanceTypeOrmRepository")
+    private balanceRepository: BalanceTypeormRepository
+  ) {
+    this.balanceEntityDomainConverter = new BalanceEntityDomainConverter();
+  }
 
   async getBalance(): Promise<BalanceCollection> {
     return this.balanceRepository
@@ -28,11 +37,11 @@ export class BalanceRepository {
         return balanceCollection;
       })
       .catch((err) => {
-        throw new Error("failed to get balances\n" + err);
+        throw new Error(err);
       });
   }
 
-  async postBalance(
+  async saveBalance(
     parameters: PostBalanceModel[]
   ): Promise<BalanceCollection> {
     const entities: Balance[] = [];

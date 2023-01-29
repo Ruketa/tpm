@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { Balance } from "../../../infrastructure/typeorm/entity/balance";
 import { injectable } from "tsyringe";
 import { DataSourceService } from "../../../infrastructure/typeorm/datasource/datasourceService";
+import { IBalanceTypeOrmRepository } from "../../../domain/balance/repository/balanceRepository";
 
 export type PostBalanceModel = {
   amount: number;
@@ -9,7 +10,7 @@ export type PostBalanceModel = {
 };
 
 @injectable()
-export class BalanceTypeormRepository {
+export class BalanceTypeormRepository implements IBalanceTypeOrmRepository {
   constructor(private datasourceService: DataSourceService) {}
 
   private async getRepository(): Promise<Repository<Balance>> {

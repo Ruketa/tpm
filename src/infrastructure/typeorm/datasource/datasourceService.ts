@@ -12,7 +12,7 @@ export class DataSourceService implements IDataSourceService {
 
   constructor() {}
 
-  private async initialize(): Promise<void> {
+  public async initialize(): Promise<void> {
     this.dataSource = new DataSource(DataSourceOption);
     this.dataSource = await this.dataSource.initialize();
   }

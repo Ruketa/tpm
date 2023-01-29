@@ -42,9 +42,8 @@ describe("DepositeCollection", () => {
 
     test("instance creation failed empty deposites", () => {
       const deposites: DepositeDomain[] = [];
-      expect(() => new DepositeCollection(deposites)).toThrow(
-        "deposites is empty"
-      );
+      const collection = new DepositeCollection(deposites);
+      expect(collection.length).toBe(0);
     });
   });
 

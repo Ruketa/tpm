@@ -1,4 +1,5 @@
 import { Amount } from "../../valueobject/amount";
+import { Id } from "../../valueobject/id";
 
 interface IEntiry<T> {
   equal(entiry: T): boolean;
@@ -7,7 +8,7 @@ interface IEntiry<T> {
 export type BalanceParameter = { id: number; amount: number; updated_on: Date };
 
 export class BalanceDomain implements IEntiry<BalanceDomain> {
-  private readonly _id!: number;
+  private readonly _id!: Id;
 
   private _amount!: Amount;
 
@@ -15,7 +16,7 @@ export class BalanceDomain implements IEntiry<BalanceDomain> {
 
   constructor(parameter: BalanceParameter) {
     try {
-      this._id = parameter.id;
+      this._id = new Id(parameter.id);
       this._amount = new Amount(parameter.amount);
       this._updated_on = parameter.updated_on;
     } catch (err) {
@@ -36,6 +37,6 @@ export class BalanceDomain implements IEntiry<BalanceDomain> {
   }
 
   get id(): number {
-    return this._id;
+    return this._id.Value;
   }
 }

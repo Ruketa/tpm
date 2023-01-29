@@ -19,4 +19,18 @@ export class Deposite {
 
   @Column()
   updated_on: Date;
+
+  constructor(
+    amount: number,
+    depositeTypeId: number,
+    from: string,
+    comment: string,
+    updated_on: Date
+  ) {
+    this.amount = amount;
+    this.depositeTypeId = depositeTypeId;
+    this.from = from;
+    this.comment = comment;
+    this.updated_on = updated_on;
+  }
 }
