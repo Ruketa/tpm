@@ -31,7 +31,7 @@ export class BalanceController {
       });
     });
     return this.balanceRepository
-      .postBalance(parameters)
+      .saveBalance(parameters)
       .then((response: BalanceCollection) => {
         const dtos: BalanceDTO[] = [];
         return this.mapBalanceDTO(response);

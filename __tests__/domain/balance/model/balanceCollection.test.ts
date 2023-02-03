@@ -40,8 +40,8 @@ describe("top", () => {
     );
     const collectoin = new BalanceCollection(domains);
     const domain = collectoin.top();
-    expect(domain.id).toBe(1);
-    expect(domain.amount.Value).toBe(100);
+    expect(domain.id).toBe(3);
+    expect(domain.amount.Value).toBe(123);
     expect(domain.updated_on).toEqual(new Date(2022, 8, 12));
   });
 

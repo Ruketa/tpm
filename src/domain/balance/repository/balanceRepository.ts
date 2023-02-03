@@ -3,7 +3,7 @@ import { BalanceCollection } from "../model/balanceCollection";
 import { inject, injectable } from "tsyringe";
 import { BalanceEntityDomainConverter } from "../service/balanceEntityDomainConverter";
 import { BalanceTypeormRepository } from "../../../infrastructure/typeorm/repository/balanceRepository";
-import { IBalanceRepository } from "../../../usecase/deposite";
+import { IBalanceRepository } from "../../../usecase/interface";
 
 export type PostBalanceModel = {
   amount: number;

@@ -1,16 +1,12 @@
 import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
+import { DepositeUsecase, PocketMoney } from "../../src/usecase/deposite";
 import {
-  DepositeUsecase,
   IBalanceRepository,
   IDepositeRepository,
-  PocketMoney,
-} from "../../src/usecase/deposite";
+} from "../../src/usecase/interface";
 import { container, injectable } from "tsyringe";
 import { DepositeCollection } from "../../src/domain/deposite/model/depositeCollection";
-import {
-  DepositeRepository,
-  PostDepositeModel,
-} from "../../src/domain/deposite/repository/depositeRepository";
+import { PostDepositeModel } from "../../src/domain/deposite/repository/depositeRepository";
 import { DepositeDomain } from "../../src/domain/deposite/model/depositeDomain";
 import { BalanceDomain } from "../../src/domain/balance/model/balance";
 import { BalanceCollection } from "../../src/domain/balance/model/balanceCollection";
@@ -156,6 +152,6 @@ describe("deposite usecase suite", () => {
     expect(store.balance[0].id).toBe(0);
     expect(store.balance[0].amount.Value).toBe(10);
     expect(store.balance[1].id).toBe(1);
-    expect(store.balance[1].amount.Value).toBe(20);
+    expect(store.balance[1].amount.Value).toBe(30);
   });
 });

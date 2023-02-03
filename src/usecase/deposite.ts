@@ -1,23 +1,10 @@
 import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
-import {
-  DepositeRepository,
-  PostDepositeModel,
-} from "../domain/deposite/repository/depositeRepository";
+import { PostDepositeModel } from "../domain/deposite/repository/depositeRepository";
 import type { DepositeCollection } from "../domain/deposite/model/depositeCollection";
-import { BalanceRepository } from "../domain/balance/repository/balanceRepository";
 import { PostBalanceModel } from "../infrastructure/typeorm/repository/balanceRepository";
-import { BalanceCollection } from "../domain/balance/model/balanceCollection";
-
-export interface IDepositeRepository {
-  getDeposite(): Promise<DepositeCollection>;
-  saveDeposite(parameter: PostDepositeModel[]): Promise<DepositeCollection>;
-}
-
-export interface IBalanceRepository {
-  getBalance(): Promise<BalanceCollection>;
-  saveBalance(balances: PostBalanceModel[]): Promise<BalanceCollection>;
-}
+import { IDepositeRepository, IBalanceRepository } from "./interface";
+import { Amount } from "../domain/valueobject/amount";
 
 export type PocketMoney = {
   amount: number;
@@ -54,18 +41,34 @@ export class DepositeUsecase {
     return collection;
   }
 
+  private async updateBalance(
+    depositeCollection: DepositeCollection
+  ): Promise<void> {
+    const updated_on = new Date();
+    const balanceCollection = await this.balanceRepository.getBalance();
+
+    let latestBalanceAmount =
+      balanceCollection.length === 0
+        ? new Amount(0)
+        : balanceCollection.top().amount;
+    const balancePalameters_: PostBalanceModel[] = [];
+    for (const deposite of depositeCollection) {
+      latestBalanceAmount = latestBalanceAmount.add(deposite.amount);
+      balancePalameters_.push({
+        amount: latestBalanceAmount.Value,
+        updated_on,
+      });
+    }
+    await this.balanceRepository.saveBalance(balancePalameters_);
+  }
+
   public async depositePocketMoney(
     pocketMoney: PocketMoney[]
   ): Promise<DepositeCollection> {
-    const updated_on = new Date();
-    const balanceParameters = pocketMoney.map((pm) => {
-      return {
-        amount: pm.amount,
-        updated_on: updated_on,
-      } as PostBalanceModel;
-    });
-    this.balanceRepository.saveBalance(balanceParameters);
+    const depositeCollection = await this.registerDeposite(pocketMoney);
 
-    return this.registerDeposite(pocketMoney);
+    await this.updateBalance(depositeCollection);
+
+    return depositeCollection;
   }
 }

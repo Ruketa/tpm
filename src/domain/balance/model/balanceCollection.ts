@@ -16,6 +16,6 @@ export class BalanceCollection implements Iterable<BalanceDomain> {
 
   top() {
     if (this.collection.length === 0) return undefined;
-    return this.collection[0];
+    return this.collection[this.collection.length - 1];
   }
 }

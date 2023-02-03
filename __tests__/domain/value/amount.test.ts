@@ -42,3 +42,23 @@ describe("equal", () => {
     expect(amount1.equal(amount2)).toBeFalsy();
   });
 });
+
+describe("calculate amount suite", () => {
+  test("add amount", () => {
+    const amount1 = new Amount(10);
+    const amount2 = new Amount(20);
+    const amount3 = amount1.add(amount2);
+    expect(amount1.Value).toBe(10);
+    expect(amount2.Value).toBe(20);
+    expect(amount3.Value).toBe(30);
+  });
+
+  test("subtract amount", () => {
+    const amount1 = new Amount(20);
+    const amount2 = new Amount(12);
+    const amount3 = amount1.subtract(amount2);
+    expect(amount1.Value).toBe(20);
+    expect(amount2.Value).toBe(12);
+    expect(amount3.Value).toBe(8);
+  });
+});

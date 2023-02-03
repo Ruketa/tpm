@@ -2,7 +2,8 @@ import { injectable, inject } from "tsyringe";
 import { Deposite } from "../../../infrastructure/typeorm/entity/deposite";
 import { DepositeCollection } from "../model/depositeCollection";
 import { DepositeDomain, DepositeParameter } from "../model/depositeDomain";
-import { IDepositeRepository } from "../../../usecase/deposite";
+import { IDepositeRepository } from "../../../usecase/interface";
+import { DepositeTypeormRepository } from "../../../infrastructure/typeorm/repository/depositeRepository";
 
 export interface IDepositeTypeOrmRepository {
   getDeposite(): Promise<Deposite[]>;
@@ -21,7 +22,7 @@ export type PostDepositeModel = {
 export class DepositeRepository implements IDepositeRepository {
   constructor(
     @inject("DepositeTypeOrmRepository")
-    private depositeRepository: IDepositeTypeOrmRepository
+    private depositeRepository: DepositeTypeormRepository
   ) {}
 
   async getDeposite(): Promise<DepositeCollection> {
